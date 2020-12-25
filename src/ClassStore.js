@@ -11,10 +11,7 @@ import {
     StarBlockStartState,
     StarLoopEntryState,
     StarLoopbackState,
-  } from "antlr4/src/antlr4/atn/ATNState";
-  
-  import {EpsilonTransition, RuleTransition, AtomTransition, SetTransition, ActionTransition, PrecedencePredicateTransition} from 'antlr4/src/antlr4/atn/Transition'
-  
+  } from "antlr4/src/antlr4/atn/ATNState";  
   
   import {CommonToken} from 'antlr4/src/antlr4/Token'
 
@@ -26,7 +23,6 @@ export class ParserStack {
     removeLastState = () => {
       const cloneState = [...this.states]
       cloneState.pop()
-      console.log('stateeeeeeeeeeeeeeeee', this.states)
       return cloneState;
     };
   
@@ -97,7 +93,6 @@ export class ParserStack {
         };
     };
   }
-
  export class TokenStream {
     constructor(tokens, cursors) {
       this.tokens = tokens
@@ -106,8 +101,6 @@ export class ParserStack {
     }
 
     next() {
-      console.log('cursorrrrrrrrs', this.cursors)
-
       if(this.cursors >= this.tokens.length){
         return this.UNKNOWN
       }
@@ -115,10 +108,7 @@ export class ParserStack {
     }
 
     atCaret() {
-      const test = this.next();
-      console.log('testtt', test)
-
-      return test.type < 0;
+      return this.next().type < 0;
     }
     move() {
       return new TokenStream(this.tokens, this.cursors + 1)
